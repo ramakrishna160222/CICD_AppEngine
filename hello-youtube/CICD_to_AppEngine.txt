@@ -1,0 +1,44 @@
+Build simple devops ci/cd pipeline on gcp appengine.
+
+1.Create a cloud Repo and check in code
+2.Deploy application in app engine.
+3.Create a cloud Build trigger for changes.
+4.Make changes in cloud.
+5.Cloud build to trigger automated rollouts and deployments.
+6. check if changes are deployed on app engine.
+
+
+Create a source repository hello-youtube and clone it to shell using "gcloud source repos create hello-youtube" and "gcloud source repos clone hello-youtube".
+cd hello-youtube
+nano main.py
+nano app.yaml
+git add .
+git commit -m "First Commit"
+git push origin master
+gcloud app deploy app.yaml
+gcloud app browse - it will give the url
+nano cloudbuild.yaml for building and storing container image
+git add .
+git commit -m "Second Commit"
+git push origin master
+Now will go cloud build and create a trigger whenever a code change done it will done and build to container registry
+create a trigger
+name app-eng-build-trigger
+select source repo "hello-youtube"
+type:  cloud build configuration file
+create
+open cloud build settings
+Enable app engine admin api
+Enable service account	
+
+
+Make changes in main.py
+git add .
+git commit -m "Third Commit"
+git push origin master
+
+Automatically build will trigger and deployed to app engine
+
+https://www.youtube.com/watch?v=4h8_JyOnRCY&list=WL&index=1
+
+
